@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+//
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -27,9 +27,17 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title    tags mask     isfloating   monitor */
+	//{ "Gimp",     NULL,     NULL,    0,            1,           -1 },
+	//{ "firefox",  NULL,     NULL,    1 << 8,       0,           -1 },
+	{ "ncspot",     NULL,     NULL,    1 << 8,       0,           -1 },
+  // Steam Rules
+	{ "Steam",      NULL,     NULL,    0,            1,           -1 },
+	{ "Steam",      "Steam",  "Steam", 0,            0,           -1 }, // Unfloats main screen
+	{ "Steam",      "Steam",  "News",  0,            1,           -1 }, // floating other stuff with Steam in title
+	{ "Steam",      "Steam",  "Info",  0,            1,           -1 }, 
+	//{ "Steam",      NULL,     "Steam - News", 0,            1,           -1 },
+	//{ "Steam",      NULL,     "Friends List", 0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -63,8 +71,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
-static const char *filecmd[]      = { "kitty", "ranger", NULL };
-static const char *musiccmd[]     = { "kitty", "ncspot", NULL };
+static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
+static const char *musiccmd[]     = { "kitty", "--class", "ncspot", "ncspot", NULL };
 static const char *pmcmd[]        = { "keepassxc", NULL }; // Password Manager
 
 // Screenshots
@@ -78,8 +86,6 @@ static const char *vpncmd[]       = { "dmenunordvpn", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -111,17 +117,18 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	/*---------------------------------ADDED-------------------------------------*/
-	{ MODKEY|ShiftMask,             XK_f,      spawn,	   {.v = browsercmd } },
-	{ MODKEY|ShiftMask,             XK_m,      spawn,	   {.v = musiccmd } },
-	{ MODKEY|ShiftMask,             XK_r,      spawn,	   {.v = filecmd } },
-	{ MODKEY|ShiftMask,             XK_z,      spawn,	   {.v = pmcmd } },
-	{ MODKEY,		                    XK_equal,  spawn,	   {.v = sectioncmd } },
-	{ MODKEY|ShiftMask,           	XK_equal,  spawn,	   {.v = screencmd } },
-	{ MODKEY,                       XK_v,      spawn,	   {.v = vpncmd } },
-	{ MODKEY,                       XK_u,      spawn,	   {.v = mountcmd } },
-	{ MODKEY|ControlMask,           XK_u,      spawn,	   {.v = umountcmd } },
-
+	/*---------------------------------PROGRAMS-------------------------------------*/
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = musiccmd } },
+	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
+	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pmcmd } },
+	{ MODKEY,		                    XK_equal,  spawn,          {.v = sectioncmd } },
+	{ MODKEY|ShiftMask,           	XK_equal,  spawn,          {.v = screencmd } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
+	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
+	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
 };
 
 /* button definitions */
