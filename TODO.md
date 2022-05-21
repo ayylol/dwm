@@ -10,3 +10,4 @@
 - Edit tags (add symbols)
 - Edit blocks (more INFO!!!!)
 - Vim Keybinds for moving windows
+- Better aesthetics for bar
