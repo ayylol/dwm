@@ -36,7 +36,7 @@ static const Rule rules[] = {
 	/* class      instance    title    tags mask     isfloating   monitor */
 	//{ "Gimp",     NULL,     NULL,    0,            1,           -1 },
 	//{ "firefox",  NULL,     NULL,    1 << 8,       0,           -1 },
-	{ "ncspot",     NULL,     NULL,    1 << 8,       0,           -1 },
+	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1 },
   // Steam Rules
 	{ "Steam",      NULL,     NULL,    0,            1,           -1 },
 	{ "Steam",      "Steam",  "Steam", 0,            0,           -1 }, // Unfloats main screen
@@ -79,39 +79,21 @@ static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
 static const char *musiccmd[]     = { "kitty", "--class", "ncspot", "ncspot", NULL };
-static const char *pmcmd[]        = { "keepassxc", NULL }; // Password Manager
-
-// Screenshots
-static const char *sectioncmd[]   = { "flameshot", "gui", NULL };
-static const char *screencmd[]    = { "flameshot", "screen", NULL };
+static const char *discordcmd[]   = { "discord", NULL }; 
+static const char *pmcmd[]        = { "keepassxc", NULL };
 
 // dmenu scripts
 static const char *mountcmd[]     = { "dmenumount", NULL };
 static const char *umountcmd[]    = { "dmenuumount", NULL };
 static const char *vpncmd[]       = { "dmenunordvpn", NULL };
 
+// Screenshots
+static const char *sectioncmd[]   = { "flameshot", "gui", NULL };
+static const char *screencmd[]    = { "flameshot", "screen", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-  // TODO: ORGANIZE THESE KEYBINDS
-  // Start of move resize
-	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
-	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
-	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-25x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 25h" } },
-	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
-	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
-	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
-	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
-	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
-	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Up,     moveresizeedge, {.v = "T"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
-  // end of move resive
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	/*------------------------------TAGS/VIEWS----------------------------------*/
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -120,17 +102,16 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, //Floating layout (doesnt make sense)
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, 
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+	//{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, // no need when only 2 monitors
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+	//{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } }, // no need when only 2 monitors
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
@@ -141,19 +122,40 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	/*---------------------------------PROGRAMS-------------------------------------*/
+	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = musiccmd } },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pmcmd } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
 	{ MODKEY,		                    XK_s,      spawn,          {.v = sectioncmd } },
 	{ MODKEY|ShiftMask,           	XK_s,      spawn,          {.v = screencmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
 	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
+	/*-----------------------------MOVE/RESIZE----------------------------------*/
+	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
+	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
+	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
+	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 25h" } },
+	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
+  /* TODO: CONSIDER DELETING THESE BELOW
+	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
+	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
+	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
+	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Up,     moveresizeedge, {.v = "T"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
+  */
 };
 
 /* button definitions */
