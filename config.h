@@ -26,24 +26,22 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
+static const char *tags[] = { "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"}; // for dual monitors
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title    tags mask     isfloating   monitor */
-	//{ "Gimp",     NULL,     NULL,    0,            1,           -1 },
-	//{ "firefox",  NULL,     NULL,    1 << 8,       0,           -1 },
-	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1 },
+	/* class        instance  title    tags mask     isfloating   monitor */
+	{ "Gimp",       NULL,     NULL,    0,            1,           -1 },
+	{ "ncspot",     NULL,     NULL,    1 << 0,       0,            1 },
   // Steam Rules
 	{ "Steam",      NULL,     NULL,    0,            1,           -1 },
 	{ "Steam",      "Steam",  "Steam", 0,            0,           -1 }, // Unfloats main screen
 	{ "Steam",      "Steam",  "News",  0,            1,           -1 }, // floating other stuff with Steam in title
 	{ "Steam",      "Steam",  "Info",  0,            1,           -1 }, 
-	//{ "Steam",      NULL,     "Steam - News", 0,            1,           -1 },
-	//{ "Steam",      NULL,     "Friends List", 0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -61,11 +59,47 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+// for single monitors
+// TODO: see if moving with window behavior is desirable
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+
+// For dual monitors
+#define TAGKEYSLEFT(KEY,TAG) \
+	{ MODKEY,                       KEY,      focusmon,      {.i = -1 } }, \
+	{ MODKEY,                       KEY,      view,          {.ui = 1 << TAG} }, \
+  \
+	{ MODKEY|ControlMask,           KEY,      focusmon,      {.i = -1} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,    {.ui = 1 << TAG} }, \
+  \
+	{ MODKEY|ShiftMask,             KEY,      tagmon,        {.i = -1 } }, \
+	{ MODKEY|ShiftMask,             KEY,      focusmon,      {.i = -1 } }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      view,          {.ui = 1 << TAG} }, \
+  \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      tagmon,        {.i = -1 } }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      focusmon,      {.i = -1 } }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,     {.ui = 1 << TAG} },
+
+#define TAGKEYSRIGHT(KEY,TAG) \
+	{ MODKEY,                       KEY,      focusmon,      {.i = +1 } }, \
+	{ MODKEY,                       KEY,      view,          {.ui = 1 << TAG} }, \
+  \
+	{ MODKEY|ControlMask,           KEY,      focusmon,      {.i = +1 } }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,    {.ui = 1 << TAG} }, \
+  \
+	{ MODKEY|ShiftMask,             KEY,      tagmon,        {.i = +1 } }, \
+	{ MODKEY|ShiftMask,             KEY,      focusmon,      {.i = +1 } }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      view,          {.ui = 1 << TAG} }, \
+  \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      tagmon,        {.i = +1 } }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      focusmon,      {.i = +1 } }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,     {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -107,12 +141,30 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+  // UNCOMMENT THIS FOR DOUBLE MONITOR SETUP
+	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_period, focusmon,       {.i = +1 } },
+
+	TAGKEYSLEFT(                    XK_1,                      0)
+	TAGKEYSLEFT(                    XK_2,                      1)
+	TAGKEYSLEFT(                    XK_3,                      2)
+	TAGKEYSLEFT(                    XK_4,                      3)
+	TAGKEYSLEFT(                    XK_5,                      4)
+
+	TAGKEYSRIGHT(                   XK_6,                      0)
+	TAGKEYSRIGHT(                   XK_7,                      1)
+	TAGKEYSRIGHT(                   XK_8,                      2)
+	TAGKEYSRIGHT(                   XK_9,                      3)
+	TAGKEYSRIGHT(                   XK_0,                      4)
+  // END OF DOUBLE MONITOR CODE
+  // UNCOMMENT THIS FOR SINGLE MONITOR SETUP
+  /*
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	//{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, // no need when only 2 monitors
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	//{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } }, // no need when only 2 monitors
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_period, focusmon,       {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -122,6 +174,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+  */
+  // END OF SINGLE MONITOR CODE
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
@@ -146,16 +200,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
 	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
 	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
-  /* TODO: CONSIDER DELETING THESE BELOW
-	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
-	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
-	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
-	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Up,     moveresizeedge, {.v = "T"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
-  */
 };
 
 /* button definitions */

@@ -741,15 +741,14 @@ detachstack(Client *c)
 Monitor *
 dirtomon(int dir)
 {
-	Monitor *m = NULL;
+	Monitor *m = selmon;
 
 	if (dir > 0) {
-		if (!(m = selmon->next))
-			m = mons;
-	} else if (selmon == mons)
-		for (m = mons; m->next; m = m->next);
-	else
+		if (selmon->next)
+			m = selmon->next;
+	} else if (selmon != mons)
 		for (m = mons; m->next != selmon; m = m->next);
+
 	return m;
 }
 
