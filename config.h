@@ -142,22 +142,22 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   // UNCOMMENT THIS FOR DOUBLE MONITOR SETUP
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_period, focusmon,       {.i = +1 } },
-
+	{ MODKEY,                       XK_a,      focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_a,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_a,      focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_a,      view,           {.ui = ~0 } },
 	TAGKEYSLEFT(                    XK_1,                      0)
 	TAGKEYSLEFT(                    XK_2,                      1)
 	TAGKEYSLEFT(                    XK_3,                      2)
 	TAGKEYSLEFT(                    XK_4,                      3)
 	TAGKEYSLEFT(                    XK_5,                      4)
-
 	TAGKEYSRIGHT(                   XK_6,                      0)
 	TAGKEYSRIGHT(                   XK_7,                      1)
 	TAGKEYSRIGHT(                   XK_8,                      2)
 	TAGKEYSRIGHT(                   XK_9,                      3)
 	TAGKEYSRIGHT(                   XK_0,                      4)
   // END OF DOUBLE MONITOR CODE
+
   // UNCOMMENT THIS FOR SINGLE MONITOR SETUP
   /*
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -176,6 +176,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
   */
   // END OF SINGLE MONITOR CODE
+  
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
@@ -191,6 +192,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
 	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
+
 	/*-----------------------------MOVE/RESIZE----------------------------------*/
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },

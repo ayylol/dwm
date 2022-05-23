@@ -6,7 +6,5 @@
 - dwmc (for doing dwm stuff in scripts)
 
 # Config changes
-- Edit tags (add symbols)
-- Edit blocks (more INFO!!!!)
-- Vim Keybinds for moving windows
 - Better aesthetics for bar
+- A way to give all tags for specific monitor
