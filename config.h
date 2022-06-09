@@ -26,8 +26,8 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
-static const char *tags[] = { "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"}; // for dual monitors
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
+//static const char *tags[] = { "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"}; // for dual monitors
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -36,7 +36,7 @@ static const Rule rules[] = {
 	 */
 	/* class        instance  title    tags mask     isfloating   monitor */
 	{ "Gimp",       NULL,     NULL,    0,            1,           -1 },
-	{ "ncspot",     NULL,     NULL,    1 << 0,       0,            1 },
+	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1 },
   // Steam Rules
 	{ "Steam",      NULL,     NULL,    0,            1,           -1 },
 	{ "Steam",      "Steam",  "Steam", 0,            0,           -1 }, // Unfloats main screen
@@ -116,6 +116,7 @@ static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NU
 static const char *musiccmd[]     = { "kitty", "--class", "ncspot", "ncspot", NULL };
 static const char *discordcmd[]   = { "discord", NULL }; 
 static const char *pmcmd[]        = { "keepassxc", NULL };
+static const char *screenkeycmd[] = { "togglesk", NULL };
 
 // dmenu scripts
 static const char *mountcmd[]     = { "dmenumount", NULL };
@@ -147,6 +148,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_a,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_a,      focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_a,      view,           {.ui = ~0 } },
+  /*
+	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_period, focusmon,       {.i = +1 } },
+
 	TAGKEYSLEFT(                    XK_1,                      0)
 	TAGKEYSLEFT(                    XK_2,                      1)
 	TAGKEYSLEFT(                    XK_3,                      2)
@@ -157,10 +163,10 @@ static Key keys[] = {
 	TAGKEYSRIGHT(                   XK_8,                      2)
 	TAGKEYSRIGHT(                   XK_9,                      3)
 	TAGKEYSRIGHT(                   XK_0,                      4)
+  */
   // END OF DOUBLE MONITOR CODE
 
   // UNCOMMENT THIS FOR SINGLE MONITOR SETUP
-  /*
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
@@ -175,7 +181,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-  */
   // END OF SINGLE MONITOR CODE
   
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
@@ -194,6 +199,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
 	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
+	{ MODKEY,                       XK_k,      spawn,          {.v = screenkeycmd } },
 
 	/*-----------------------------MOVE/RESIZE----------------------------------*/
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
