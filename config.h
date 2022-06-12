@@ -26,8 +26,8 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
-//static const char *tags[] = { "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"}; // for dual monitors
+//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
+static const char *tags[] = { "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"}; // for dual monitors
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -36,7 +36,10 @@ static const Rule rules[] = {
 	 */
 	/* class        instance  title    tags mask     isfloating   monitor */
 	{ "Gimp",       NULL,     NULL,    0,            1,           -1 },
-	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1 },
+	{ "ncspot",     NULL,     NULL,    1 << 0,       0,            1 },
+	{ "calcurse",   NULL,     NULL,    1 << 0,       0,            0 },
+  // Godot Rules
+	{ "Godot",      NULL,     "DEBUG", 0,            1,           -1 }, // Needs update rules patch probably
   // Steam Rules
 	{ "Steam",      NULL,     NULL,    0,            1,           -1 },
 	{ "Steam",      "Steam",  "Steam", 0,            0,           -1 }, // Unfloats main screen
@@ -69,6 +72,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 // For dual monitors
+// TODO: Change to not follow screens when moving
 #define TAGKEYSLEFT(KEY,TAG) \
 	{ MODKEY,                       KEY,      focusmon,      {.i = -1 } }, \
 	{ MODKEY,                       KEY,      view,          {.ui = 1 << TAG} }, \
@@ -111,9 +115,9 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
-static const char *pbrowsercmd[]  = { "firefox_personal", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
 static const char *musiccmd[]     = { "kitty", "--class", "ncspot", "ncspot", NULL };
+static const char *calendarcmd[]  = { "kitty", "--class", "calcurse", "calcurse", NULL };
 static const char *discordcmd[]   = { "discord", NULL }; 
 static const char *pmcmd[]        = { "keepassxc", NULL };
 static const char *screenkeycmd[] = { "togglesk", NULL };
@@ -139,6 +143,7 @@ static Key keys[] = {
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, 
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -146,7 +151,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
   // UNCOMMENT THIS FOR DOUBLE MONITOR SETUP
-  /*
+  
 	{ MODKEY,                       XK_a,      focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_a,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_a,      focusmon,       {.i = +1 } },
@@ -165,10 +170,11 @@ static Key keys[] = {
 	TAGKEYSRIGHT(                   XK_8,                      2)
 	TAGKEYSRIGHT(                   XK_9,                      3)
 	TAGKEYSRIGHT(                   XK_0,                      4)
-  */
+  
   // END OF DOUBLE MONITOR CODE
 
   // UNCOMMENT THIS FOR SINGLE MONITOR SETUP
+  /*
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
@@ -183,6 +189,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+  */
   // END OF SINGLE MONITOR CODE
   
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
@@ -191,8 +198,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
-	{ MODKEY|ControlMask|ShiftMask, XK_f,      spawn,          {.v = pbrowsercmd } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = musiccmd } },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = calendarcmd } }, // TODO: see if bind is easy to get used to
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pmcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
@@ -201,7 +208,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
 	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
-	{ MODKEY,                       XK_k,      spawn,          {.v = screenkeycmd } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = screenkeycmd } },
 
 	/*-----------------------------MOVE/RESIZE----------------------------------*/
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
