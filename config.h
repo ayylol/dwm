@@ -26,8 +26,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
-static const char *tags[] = { "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"}; // for dual monitors
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -36,7 +35,7 @@ static const Rule rules[] = {
 	 */
 	/* class        instance  title    tags mask     isfloating   monitor */
 	{ "Gimp",       NULL,     NULL,    0,            1,           -1 },
-	{ "ncspot",     NULL,     NULL,    1 << 0,       0,            1 },
+	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1 },
 	{ "calcurse",   NULL,     NULL,    1 << 0,       0,            0 },
   // Godot Rules
 	{ "Godot",      NULL,     "DEBUG", 0,            1,           -1 }, // Needs update rules patch probably
@@ -68,7 +67,6 @@ static const Layout layouts[] = {
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 // For dual monitors
@@ -143,7 +141,6 @@ static Key keys[] = {
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, 
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -151,7 +148,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
   // UNCOMMENT THIS FOR DOUBLE MONITOR SETUP
-  
+  /*
 	{ MODKEY,                       XK_a,      focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_a,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_a,      focusmon,       {.i = +1 } },
@@ -170,16 +167,17 @@ static Key keys[] = {
 	TAGKEYSRIGHT(                   XK_8,                      2)
 	TAGKEYSRIGHT(                   XK_9,                      3)
 	TAGKEYSRIGHT(                   XK_0,                      4)
-  
+ */ 
   // END OF DOUBLE MONITOR CODE
 
   // UNCOMMENT THIS FOR SINGLE MONITOR SETUP
-  /*
+  
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -189,7 +187,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-  */
+  
   // END OF SINGLE MONITOR CODE
   
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
@@ -203,7 +201,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pmcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
-	{ MODKEY,		                    XK_s,      spawn,          {.v = sectioncmd } },
+	{ MODKEY,	                XK_s,      spawn,          {.v = sectioncmd } },
 	{ MODKEY|ShiftMask,           	XK_s,      spawn,          {.v = screencmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
