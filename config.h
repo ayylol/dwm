@@ -35,17 +35,19 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class        instance  title    tags mask     isfloating   monitor */
-	{ "Gimp",       NULL,     NULL,    0,            1,           -1 },
-	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1 },
-	{ "calcurse",   NULL,     NULL,    1 << 0,       0,            0 },
+	{ "Gimp",       NULL,     NULL,    0,            1,           -1,          240,110,1440,860,     2 },
+
+	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1,          50,50,500,500,        2 },
+	{ "calcurse",   NULL,     NULL,    1 << 0,       0,            0,          50,50,500,500,        2 },
   // Godot Rules
-	{ "Godot",      NULL,     "DEBUG", 0,            1,           -1 }, // Needs update rules patch probably
+	{ "Godot",      NULL,     "DEBUG", 0,            1,           -1,          50,50,500,500,        2 }, // Needs update rules patch probably
   // Steam Rules
-	{ "Steam",      NULL,     NULL,    0,            1,           -1 },
-	{ "Steam",      "Steam",  "Steam", 0,            0,           -1 }, // Unfloats main screen
-	{ "Steam",      "Steam",  "News",  0,            1,           -1 }, // floating other stuff with Steam in title
-	{ "Steam",      "Steam",  "Info",  0,            1,           -1 }, 
+	{ "Steam",      NULL,     NULL,    0,            1,           -1,          50,50,500,500,        2 },
+	{ "Steam",      "Steam",  "Steam", 0,            0,           -1,          50,50,500,500,        2 },// Unfloats main screen
+	{ "Steam",      "Steam",  "News",  0,            1,           -1,          50,50,500,500,        2 }, // floating other stuff with Steam in title
+	{ "Steam",      "Steam",  "Info",  0,            1,           -1,          50,50,500,500,        2 },
 };
+
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
