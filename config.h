@@ -13,11 +13,14 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#008899";
-//static const char col_cyan[]        = "#005577";
+static const char col_red[]         = "#FF0000";
+static const char col_orange[]      = "#FF8800";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeScratchSel]  = { col_gray4, col_cyan,  col_red  },
+	[SchemeScratchNorm] = { col_gray4, col_cyan,  col_orange },
 };
 
 /* Autostart */
@@ -27,25 +30,28 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; // for single monitors
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; 
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class        instance  title    tags mask     isfloating   monitor */
-	{ "Gimp",       NULL,     NULL,    0,            1,           -1,          240,110,1440,860,     2 },
+	/* class        instance  title    tags mask    isfloating   monitor      float x,y,w,h    floatborderpx   Scratchkey*/
+	{ "Gimp",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0},
 
-	{ "ncspot",     NULL,     NULL,    1 << 8,       0,            1,          50,50,500,500,        2 },
-	{ "calcurse",   NULL,     NULL,    1 << 0,       0,            0,          50,50,500,500,        2 },
   // Godot Rules
-	{ "Godot",      NULL,     "DEBUG", 0,            1,           -1,          50,50,500,500,        2 }, // Needs update rules patch probably
+	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,     2,          0}, // Needs update rules patch probably
   // Steam Rules
-	{ "Steam",      NULL,     NULL,    0,            1,           -1,          50,50,500,500,        2 },
-	{ "Steam",      "Steam",  "Steam", 0,            0,           -1,          50,50,500,500,        2 },// Unfloats main screen
-	{ "Steam",      "Steam",  "News",  0,            1,           -1,          50,50,500,500,        2 }, // floating other stuff with Steam in title
-	{ "Steam",      "Steam",  "Info",  0,            1,           -1,          50,50,500,500,        2 },
+	{ "Steam",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0},
+	{ "Steam",      "Steam",  "Steam", 0,           0,           -1,         240,110,1440,860,     2,          0},// Unfloats main screen
+	{ "Steam",      "Steam",  "News",  0,           1,           -1,         240,110,1440,860,     2,          0}, // floating other stuff with Steam in title
+	{ "Steam",      "Steam",  "Info",  0,           1,           -1,         240,110,1440,860,     2,          0},
+  // ScratchPads
+	{ "ncspot",     NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'n' },
+	{ "calcurse",   NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'e' },
+	{ "btop",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'x' },
+	{ NULL,  "keepassxc",     NULL,    0,           0,           -1,         240,110,1440,860,     4,          'z' },
 };
 
 
@@ -65,46 +71,11 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 // for single monitors
-// TODO: see if moving with window behavior is desirable
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
-// For dual monitors
-// TODO: Change to not follow screens when moving
-#define TAGKEYSLEFT(KEY,TAG) \
-	{ MODKEY,                       KEY,      focusmon,      {.i = -1 } }, \
-	{ MODKEY,                       KEY,      view,          {.ui = 1 << TAG} }, \
-  \
-	{ MODKEY|ControlMask,           KEY,      focusmon,      {.i = -1} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,    {.ui = 1 << TAG} }, \
-  \
-	{ MODKEY|ShiftMask,             KEY,      tagmon,        {.i = -1 } }, \
-	{ MODKEY|ShiftMask,             KEY,      focusmon,      {.i = -1 } }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      view,          {.ui = 1 << TAG} }, \
-  \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      tagmon,        {.i = -1 } }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      focusmon,      {.i = -1 } }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,     {.ui = 1 << TAG} },
-
-#define TAGKEYSRIGHT(KEY,TAG) \
-	{ MODKEY,                       KEY,      focusmon,      {.i = +1 } }, \
-	{ MODKEY,                       KEY,      view,          {.ui = 1 << TAG} }, \
-  \
-	{ MODKEY|ControlMask,           KEY,      focusmon,      {.i = +1 } }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,    {.ui = 1 << TAG} }, \
-  \
-	{ MODKEY|ShiftMask,             KEY,      tagmon,        {.i = +1 } }, \
-	{ MODKEY|ShiftMask,             KEY,      focusmon,      {.i = +1 } }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      view,          {.ui = 1 << TAG} }, \
-  \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      tagmon,        {.i = +1 } }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      focusmon,      {.i = +1 } }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,     {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -117,11 +88,14 @@ static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenuf
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
-static const char *musiccmd[]     = { "kitty", "--class", "ncspot", "ncspot", NULL };
-static const char *calendarcmd[]  = { "kitty", "--class", "calcurse", "calcurse", NULL };
 static const char *discordcmd[]   = { "discord", NULL }; 
-static const char *pmcmd[]        = { "keepassxc", NULL };
 static const char *screenkeycmd[] = { "togglesk", NULL };
+
+// Scratch Pads
+static const char *spncspot[] = {"n", "kitty", "--class", "ncspot", "ncspot", NULL};
+static const char *spcal[] = {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
+static const char *spbtop[] = {"x", "kitty", "--class", "btop", "btop", NULL};
+static const char *sppm[] = { "z", "keepassxc", NULL };
 
 // dmenu scripts
 static const char *mountcmd[]     = { "dmenumount", NULL };
@@ -153,31 +127,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
-
-  // UNCOMMENT THIS FOR DOUBLE MONITOR SETUP
-  /*
-	{ MODKEY,                       XK_a,      focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_a,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_a,      focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_a,      view,           {.ui = ~0 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_period, focusmon,       {.i = +1 } },
-
-	TAGKEYSLEFT(                    XK_1,                      0)
-	TAGKEYSLEFT(                    XK_2,                      1)
-	TAGKEYSLEFT(                    XK_3,                      2)
-	TAGKEYSLEFT(                    XK_4,                      3)
-	TAGKEYSLEFT(                    XK_5,                      4)
-	TAGKEYSRIGHT(                   XK_6,                      0)
-	TAGKEYSRIGHT(                   XK_7,                      1)
-	TAGKEYSRIGHT(                   XK_8,                      2)
-	TAGKEYSRIGHT(                   XK_9,                      3)
-	TAGKEYSRIGHT(                   XK_0,                      4)
- */ 
-  // END OF DOUBLE MONITOR CODE
-
-  // UNCOMMENT THIS FOR SINGLE MONITOR SETUP
   
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -195,18 +144,13 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
   
-  // END OF SINGLE MONITOR CODE
-  
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = musiccmd } },
-	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = calendarcmd } }, // TODO: see if bind is easy to get used to
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
-	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = pmcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
 	{ MODKEY,	                XK_s,      spawn,          {.v = sectioncmd } },
 	{ MODKEY|ShiftMask,           	XK_s,      spawn,          {.v = screencmd } },
@@ -214,6 +158,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
 	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
 	{ MODKEY,                       XK_c,      spawn,          {.v = screenkeycmd } },
+  // Scratch Pads
+	{ MODKEY,                       XK_n,      togglescratch,  {.v = spncspot } },
+	{ MODKEY,                       XK_e,      togglescratch,  {.v = spcal } },
+	{ MODKEY,                       XK_x,      togglescratch,  {.v = spbtop } },
+	{ MODKEY,                       XK_z,      togglescratch,  {.v = sppm } },
 
 	/*-----------------------------MOVE/RESIZE----------------------------------*/
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
