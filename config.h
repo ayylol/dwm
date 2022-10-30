@@ -39,6 +39,8 @@ static const Rule rules[] = {
 	 */
 	/* class        instance  title    tags mask    isfloating   monitor      float x,y,w,h    floatborderpx   Scratchkey*/
 	{ "Gimp",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0},
+  // OpenGL test programs
+	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0 },
 
   // Godot Rules
 	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,     2,          0}, // Needs update rules patch probably
