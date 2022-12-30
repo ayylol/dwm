@@ -88,6 +88,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 
 // Program launching
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
+static const char *dmenuprogcmd[]     = { "dmenu_programs", "-m", dmenumon, NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
@@ -150,7 +151,8 @@ static Key keys[] = {
 	/*--------------------------PROGRAMS/SHORTCUTS------------------------------*/
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenuprogcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
