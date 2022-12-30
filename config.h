@@ -88,7 +88,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 
 // Program launching
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *dmenuprogcmd[]     = { "dmenu_programs", "-m", dmenumon, NULL };
+static const char *dmenuprogcmd[] = { "dmenu_programs", NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
@@ -97,9 +97,9 @@ static const char *screenkeycmd[] = { "togglesk", NULL };
 
 // Scratch Pads
 static const char *spncspot[] = {"n", "kitty", "--class", "ncspot", "ncspot", NULL};
-static const char *spcal[] = {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
-static const char *spbtop[] = {"x", "kitty", "--class", "btop", "btop", NULL};
-static const char *sppm[] = { "z", "keepassxc", NULL };
+static const char *spcal[] =    {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
+static const char *spbtop[] =   {"x", "kitty", "--class", "btop", "btop", NULL};
+static const char *sppm[] =     {"z", "keepassxc", NULL };
 
 // dmenu scripts
 static const char *mountcmd[]     = { "dmenumount", NULL };
