@@ -6,15 +6,22 @@ static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-//static const char *fonts[]          = { "Source Code Pro:size=12:antialias=true" };
-//static const char dmenufont[]       = "Source Code Pro:size=12:antialias=true";
 static const char *fonts[]          = { "FiraCode Nerd Font:size=12:antialias=true" };
 static const char dmenufont[]       = "FiraCode Nerd Font:size=18:antialias=true";
+
+static const char col_gray1[]	    = "#282828";
+static const char col_gray2[]       = "#282828";
+static const char col_gray3[] 	    = "#d2b979";
+static const char col_gray4[] 	    = "#282828";
+static const char col_cyan[] 	    = "#d2b979";
+
+/*
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#008899";
+*/
 static const char col_red[]         = "#FF0000";
 static const char col_orange[]      = "#FF8800";
 static const char *colors[][3]      = {
@@ -32,7 +39,8 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; 
+static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; 
 
 static const Rule rules[] = {
 	/* xprop(1):
