@@ -7,7 +7,6 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "FiraCode Nerd Font:size=12:antialias=true" };
-static const char dmenufont[]       = "FiraCode Nerd Font:size=18:antialias=true";
 
 static const char col_black[]	    = "#323437";
 static const char col_black2[]	    = "#080808";
