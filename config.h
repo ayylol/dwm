@@ -9,27 +9,18 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "FiraCode Nerd Font:size=12:antialias=true" };
 static const char dmenufont[]       = "FiraCode Nerd Font:size=18:antialias=true";
 
-static const char col_gray1[]	    = "#282828";
-static const char col_gray2[]       = "#282828";
-static const char col_gray3[] 	    = "#d2b979";
-static const char col_gray4[] 	    = "#282828";
-static const char col_cyan[] 	    = "#d2b979";
+static const char col_black[]	    = "#323437";
+static const char col_black2[]	    = "#080808";
+static const char col_white[]	    = "#c6c6c6";
+static const char col_yellow[]	    = "#e3c78a";
+static const char col_magenta[]	    = "#ae81ff";
 
-/*
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#008899";
-*/
-static const char col_red[]         = "#FF0000";
-static const char col_orange[]      = "#FF8800";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-	[SchemeScratchSel]  = { col_gray4, col_cyan,  col_red  },
-	[SchemeScratchNorm] = { col_gray4, col_cyan,  col_orange },
+	[SchemeNorm] = { col_yellow, col_black, col_black2 },
+	[SchemeSel]  = { col_black, col_yellow,  col_magenta },
+	[SchemeScratchNorm] = { col_black, col_yellow,  col_black2 },
+	[SchemeScratchSel]  = { col_black, col_yellow,  col_magenta  },
 };
 
 /* Autostart */
@@ -96,7 +87,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 // Program launching
-static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-l", "15", NULL };
+static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
