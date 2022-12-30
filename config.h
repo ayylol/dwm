@@ -6,8 +6,10 @@ static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Source Code Pro:size=12:antialias=true" };
-static const char dmenufont[]       = "Source Code Pro:size=12:antialias=true";
+//static const char *fonts[]          = { "Source Code Pro:size=12:antialias=true" };
+//static const char dmenufont[]       = "Source Code Pro:size=12:antialias=true";
+static const char *fonts[]          = { "FiraCode Nerd Font:size=12:antialias=true" };
+static const char dmenufont[]       = "FiraCode Nerd Font:size=18:antialias=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -40,7 +42,7 @@ static const Rule rules[] = {
 	/* class        instance  title    tags mask    isfloating   monitor      float x,y,w,h    floatborderpx   Scratchkey*/
 	{ "Gimp",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0},
   // OpenGL test programs
-	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0 },
+	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,         530,110,860,860,     2,          0 },
 
   // Godot Rules
 	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,     2,          0}, // Needs update rules patch probably
@@ -86,7 +88,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 // Program launching
-static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-l", "15", NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
 static const char *filecmd[]      = { "kitty", "--class", "ranger", "ranger", NULL };
