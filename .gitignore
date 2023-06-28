@@ -3,3 +3,6 @@ dwm
 *.orig
 *.rej
 autostart
+
+.cache/*
+compile_commands.json
