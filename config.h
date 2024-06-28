@@ -56,7 +56,7 @@ static const Rule rules[] = {
 	{ "calcurse",   NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'e' },
 	{ "btop",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'x' },
 	{ NULL,  "keepassxc",     NULL,    0,           0,           -1,         240,110,1440,860,     4,          'z' },
-	{ NULL,  "Mail",   NULL,    0,           0,           -1,         240,110,1440,860,     4,          't' },
+	{ NULL,  "Mail",          NULL,    0,           0,           -1,         240,110,1440,860,     4,          't' },
 };
 
 
@@ -93,7 +93,6 @@ static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *dmenuprogcmd[] = { "dmenu_programs", NULL };
 static const char *termcmd[]      = { "kitty", NULL };
 static const char *browsercmd[]   = { "firefox", NULL };
-static const char *filecmd[]      = { "kitty", "--class", "lf", "lf", NULL };
 static const char *discordcmd[]   = { "discord", NULL }; 
 static const char *screenkeycmd[] = { "togglesk", NULL };
 
@@ -105,9 +104,6 @@ static const char *sppm[] =     {"z", "keepassxc", NULL };
 static const char *spemail[] =  {"t", "thunderbird", NULL };
 
 // dmenu scripts
-static const char *mountcmd[]     = { "dmenumount", NULL };
-static const char *umountcmd[]    = { "dmenuumount", NULL };
-static const char *vpncmd[]       = { "dmenunordvpn", NULL };
 
 // Screenshots
 static const char *sectioncmd[]   = { "flameshot", "gui", NULL };
@@ -158,13 +154,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenuprogcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = filecmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
 	{ MODKEY,	                      XK_s,      spawn,          {.v = sectioncmd } },
 	{ MODKEY|ShiftMask,           	XK_s,      spawn,          {.v = screencmd } },
-	{ MODKEY,                       XK_v,      spawn,          {.v = vpncmd } },
-	{ MODKEY,                       XK_u,      spawn,          {.v = mountcmd } },
-	{ MODKEY|ControlMask,           XK_u,      spawn,          {.v = umountcmd } },
 	{ MODKEY,                       XK_c,      spawn,          {.v = screenkeycmd } },
   // Scratch Pads
 	{ MODKEY,                       XK_n,      togglescratch,  {.v = spncspot } },
