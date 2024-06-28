@@ -56,7 +56,7 @@ static const Rule rules[] = {
 	{ "calcurse",   NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'e' },
 	{ "btop",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'x' },
 	{ NULL,  "keepassxc",     NULL,    0,           0,           -1,         240,110,1440,860,     4,          'z' },
-	{ NULL,  "Mail",          NULL,    0,           0,           -1,         240,110,1440,860,     4,          't' },
+	{ NULL,  "Mail",          NULL,    0,           0,           -1,         240,110,1440,860,     4,          'r' },
 };
 
 
@@ -101,7 +101,7 @@ static const char *spncspot[] = {"n", "kitty", "--class", "ncspot", "ncspot", NU
 static const char *spcal[] =    {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
 static const char *spbtop[] =   {"x", "kitty", "--class", "btop", "btop", NULL};
 static const char *sppm[] =     {"z", "keepassxc", NULL };
-static const char *spemail[] =  {"t", "thunderbird", NULL };
+static const char *spemail[] =  {"r", "thunderbird", NULL };
 
 // dmenu scripts
 
@@ -157,13 +157,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
 	{ MODKEY,	                      XK_s,      spawn,          {.v = sectioncmd } },
 	{ MODKEY|ShiftMask,           	XK_s,      spawn,          {.v = screencmd } },
-	{ MODKEY,                       XK_c,      spawn,          {.v = screenkeycmd } },
+	{ MODKEY,                       XK_y,      spawn,          {.v = screenkeycmd } },
   // Scratch Pads
 	{ MODKEY,                       XK_n,      togglescratch,  {.v = spncspot } },
 	{ MODKEY,                       XK_e,      togglescratch,  {.v = spcal } },
 	{ MODKEY,                       XK_x,      togglescratch,  {.v = spbtop } },
 	{ MODKEY,                       XK_z,      togglescratch,  {.v = sppm } },
-	{ MODKEY,                       XK_t,      togglescratch,  {.v = spemail } },
+	{ MODKEY,                       XK_r,      togglescratch,  {.v = spemail } },
 
 	/*-----------------------------MOVE/RESIZE----------------------------------*/
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
