@@ -2,24 +2,24 @@
 //
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
+static const Gap default_gap        = {.isgap = 0, .realgap = 0, .gappx = 0};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "FiraCode Nerd Font:size=12:antialias=true" };
 
-static const char col_black[]	    = "#323437";
+static const char col_black[]	      = "#323437";
 static const char col_black2[]	    = "#080808";
-static const char col_white[]	    = "#c6c6c6";
+static const char col_white[]	      = "#c6c6c6";
 static const char col_yellow[]	    = "#e3c78a";
 static const char col_magenta[]	    = "#ae81ff";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_yellow, col_black, col_black2 },
-	[SchemeSel]  = { col_black, col_yellow,  col_magenta },
+	[SchemeSel]  = { col_black, col_yellow,  col_yellow },
 	[SchemeScratchNorm] = { col_black, col_yellow,  col_black2 },
-	[SchemeScratchSel]  = { col_black, col_yellow,  col_magenta  },
+	[SchemeScratchSel]  = { col_black, col_yellow,  col_yellow  },
 };
 
 /* Autostart */
@@ -152,7 +152,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenuprogcmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
 	{ MODKEY,	                      XK_s,      spawn,          {.v = sectioncmd } },
