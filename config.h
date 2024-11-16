@@ -38,25 +38,24 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class        instance  title    tags mask    isfloating   monitor      float x,y,w,h    floatborderpx   Scratchkey*/
-	{ "Gimp",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0},
+	{ "Gimp",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    2,          0},
   // OpenGL test programs
-	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0 },
-	{ "AUTO",       NULL,     NULL,    0,           1,           1,         0,0,1920,1080,     2,          0 },
-	//{ "DEBUG",      NULL,     NULL,    0,           1,           1,         0,0,1920,1080,     2,          0 },
-
+	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,        240,110,1440,860,     2,          0},
+	{ "AUTO",       NULL,     NULL,    0,           1,           1,         0,0,1920,1080,        2,          0},
   // Godot Rules
-	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,     2,          0}, // Needs update rules patch probably
+	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,    2,          0}, // Needs update rules patch probably
   // Steam Rules
-	{ "Steam",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     2,          0},
-	{ "Steam",      "Steam",  "Steam", 0,           0,           -1,         240,110,1440,860,     2,          0},// Unfloats main screen
-	{ "Steam",      "Steam",  "News",  0,           1,           -1,         240,110,1440,860,     2,          0}, // floating other stuff with Steam in title
-	{ "Steam",      "Steam",  "Info",  0,           1,           -1,         240,110,1440,860,     2,          0},
+	{ "Steam",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    2,          0},
+	{ "Steam",      "Steam",  "Steam", 0,           0,           -1,         240,110,1440,860,    2,          0},// Unfloats main screen
+	{ "Steam",      "Steam",  "News",  0,           1,           -1,         240,110,1440,860,    2,          0}, // floating other stuff with Steam in title
+	{ "Steam",      "Steam",  "Info",  0,           1,           -1,         240,110,1440,860,    2,          0},
   // ScratchPads
-	{ "ncspot",     NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'n' },
-	{ "calcurse",   NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'e' },
-	{ "btop",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,     4,          'x' },
-	{ NULL,  "keepassxc",     NULL,    0,           0,           -1,         240,110,1440,860,     4,          'z' },
-	{ NULL,  "Mail",          NULL,    0,           0,           -1,         240,110,1440,860,     4,          'r' },
+	{ "ncspot",     NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'n'},
+	{ "calcurse",   NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'e'},
+	{ "btop",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'x'},
+  { "Mixer",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'a'},
+	{ NULL,  "keepassxc",     NULL,    0,           0,           -1,         240,110,1440,860,    4,          'z'},
+	{ NULL,  "Mail",          NULL,    0,           0,           -1,         240,110,1440,860,    4,          'r'},
 };
 
 
@@ -100,6 +99,7 @@ static const char *screenkeycmd[] = { "togglesk", NULL };
 static const char *spncspot[] = {"n", "kitty", "--class", "ncspot", "ncspot", NULL};
 static const char *spcal[] =    {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
 static const char *spbtop[] =   {"x", "kitty", "--class", "btop", "btop", NULL};
+static const char *spmixer[] =  {"a", "kitty", "--class", "Mixer", "tmx", "volume_mixer", NULL};
 static const char *sppm[] =     {"z", "keepassxc", NULL };
 static const char *spemail[] =  {"r", "thunderbird", NULL };
 
@@ -162,6 +162,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_n,      togglescratch,  {.v = spncspot } },
 	{ MODKEY,                       XK_e,      togglescratch,  {.v = spcal } },
 	{ MODKEY,                       XK_x,      togglescratch,  {.v = spbtop } },
+  { MODKEY,                       XK_a,      togglescratch,  {.v = spmixer } },
 	{ MODKEY,                       XK_z,      togglescratch,  {.v = sppm } },
 	{ MODKEY,                       XK_r,      togglescratch,  {.v = spemail } },
 
