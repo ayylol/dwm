@@ -50,11 +50,10 @@ static const Rule rules[] = {
 	{ "Steam",      "Steam",  "News",  0,           1,           -1,         240,110,1440,860,    2,          0}, // floating other stuff with Steam in title
 	{ "Steam",      "Steam",  "Info",  0,           1,           -1,         240,110,1440,860,    2,          0},
   // ScratchPads
-	//{ "ncspot",     NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'n'},
-	{ "Spotify",    NULL,    NULL,     0,           1,           -1,         240,110,1440,860,    4,          'n'},
 	{ "calcurse",   NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'e'},
 	{ "btop",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'x'},
   { "Mixer",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'a'},
+  { "Notes",      NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    4,          'n'},
 	{ NULL,  "keepassxc",     NULL,    0,           0,           -1,         240,110,1440,860,    4,          'z'},
 	{ NULL,  "Mail",          NULL,    0,           0,           -1,         240,110,1440,860,    4,          'r'},
 };
@@ -98,10 +97,10 @@ static const char *screenkeycmd[] = { "togglesk", NULL };
 
 // Scratch Pads
 //static const char *spncspot[] = {"n", "kitty", "--class", "ncspot", "ncspot", NULL};
-static const char *spspot[] =   {"n", "spotify-launcher", NULL};
 static const char *spcal[] =    {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
 static const char *spbtop[] =   {"x", "kitty", "--class", "btop", "btop", NULL};
 static const char *spmixer[] =  {"a", "kitty", "--class", "Mixer", "tmx", "volume_mixer", NULL};
+static const char *spnotes[] =  {"n", "kitty", "--class", "Notes", "tmx", "notes", NULL};
 static const char *sppm[] =     {"z", "keepassxc", NULL };
 static const char *spemail[] =  {"r", "thunderbird", NULL };
 
@@ -162,10 +161,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_y,      spawn,          {.v = screenkeycmd } },
   // Scratch Pads
 	//{ MODKEY,                       XK_n,      togglescratch,  {.v = spncspot } },
-	{ MODKEY,                       XK_n,      togglescratch,  {.v = spspot } },
 	{ MODKEY,                       XK_e,      togglescratch,  {.v = spcal } },
 	{ MODKEY,                       XK_x,      togglescratch,  {.v = spbtop } },
   { MODKEY,                       XK_a,      togglescratch,  {.v = spmixer } },
+  { MODKEY,                       XK_n,      togglescratch,  {.v = spnotes } },
 	{ MODKEY,                       XK_z,      togglescratch,  {.v = sppm } },
 	{ MODKEY,                       XK_r,      togglescratch,  {.v = spemail } },
 
