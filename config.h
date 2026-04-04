@@ -41,7 +41,7 @@ static const Rule rules[] = {
 	{ "Gimp",       NULL,     NULL,    0,           1,           -1,         240,110,1440,860,    2,          0},
   // OpenGL test programs
 	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,        240,110,1440,860,     2,          0},
-	{ "AUTO",       NULL,     NULL,    0,           1,           1,         0,0,1920,1080,        2,          0},
+	{ "AUTO",       NULL,     NULL,    9,           1,           -1,        240,110,1440,860,     2,          0},
   // Godot Rules
 	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,    2,          0}, // Needs update rules patch probably
   // Steam Rules
