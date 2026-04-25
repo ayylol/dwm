@@ -42,6 +42,7 @@ static const Rule rules[] = {
   // OpenGL test programs
   { "AUTO",       NULL,     NULL,    1<<5,        1,           -1,        240,110,1440,860,     2,          0},
 	{ "DEBUG",      NULL,     NULL,    0,           1,           -1,        240,110,1440,860,     2,          0},
+	{ "FLOAT",      NULL,     NULL,    0,           1,           -1,        240,110,1440,860,     2,          0},
   // Godot Rules
 	{ "Godot",      NULL,     "DEBUG", 0,           1,           -1,         240,110,1440,860,    2,          0}, // Needs update rules patch probably
   { "gdscript",   NULL,     NULL,    1<<1,        0,           -1,         240,110,1440,860,     2,          0},
