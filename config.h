@@ -89,22 +89,23 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
+#define TERM "st"
 // Program launching
-static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *dmenuprogcmd[] = { "dmenu_programs", NULL };
-static const char *termcmd[]      = { "kitty", NULL };
-static const char *browsercmd[]   = { "firefox", NULL };
-static const char *discordcmd[]   = { "discord", NULL }; 
-static const char *screenkeycmd[] = { "togglesk", NULL };
+static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, NULL };
+static const char *dmenuprogcmd[]   = { "dmenu_programs", NULL };
+static const char *termcmd[]        = { TERM, NULL };
+static const char *browsercmd[]     = { "firefox", NULL };
+static const char *discordcmd[]     = { "discord", NULL };
+static const char *screenkeycmd[]   = { "togglesk", NULL };
+static const char *mousespeedcmd[]  = { "mousespeed", NULL };
 
 // Scratch Pads
-//static const char *spncspot[] = {"n", "kitty", "--class", "ncspot", "ncspot", NULL};
-static const char *spcal[] =    {"e", "kitty", "--class", "calcurse", "calcurse", NULL};
-static const char *spbtop[] =   {"x", "kitty", "--class", "btop", "btop", NULL};
-static const char *spmixer[] =  {"a", "kitty", "--class", "Mixer", "tmx", "volume_mixer", NULL};
-static const char *spnotes[] =  {"n", "kitty", "--class", "Notes", "tmx", "notes", NULL};
-static const char *sppm[] =     {"z", "keepassxc", NULL };
-static const char *spemail[] =  {"r", "thunderbird", NULL };
+static const char *spcal[]    = {"e", TERM, "-c", "calcurse", "calcurse", NULL};
+static const char *spbtop[]   = {"x", TERM, "-c", "btop", "btop", NULL};
+static const char *spmixer[]  = {"a", TERM, "-c", "Mixer", "tmx", "volume_mixer", NULL};
+static const char *spnotes[]  = {"n", TERM, "-c", "Notes", "tmx", "notes", NULL};
+static const char *sppm[]     = {"z", "keepassxc", NULL };
+static const char *spemail[]  = {"r", "thunderbird", NULL };
 
 // dmenu scripts
 
@@ -161,6 +162,7 @@ static Key keys[] = {
 	{ MODKEY,	                      XK_s,      spawn,          {.v = sectioncmd } },
 	{ MODKEY|ShiftMask,           	XK_s,      spawn,          {.v = screencmd } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = screenkeycmd } },
+	{ MODKEY,                       XK_grave,  spawn,          {.v = mousespeedcmd } },
   // Scratch Pads
 	//{ MODKEY,                       XK_n,      togglescratch,  {.v = spncspot } },
 	{ MODKEY,                       XK_e,      togglescratch,  {.v = spcal } },
